@@ -1,0 +1,20 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "it is a Nodejs tutorial by Atul",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Atul Raina",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.3",
+    "lodash": "^4.17.21",
+    "mongodb": "^6.4.0",
+    "mongoose": "^8.2.1",
+    "nodemon": "^3.1.0",
+    "package": "^1.0.1"
+  }
+}
