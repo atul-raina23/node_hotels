@@ -501,46 +501,53 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });*/
 
-
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 const app = express();
 
 // Middleware
 app.use(bodyParser.json());
 
-// Connect to MongoDB
-const mongoURL = 'mongodb://127.0.0.1:27017/hotels';
+// Connection to MongoDB
+const mongoURL = process.env.MONGODB_URL_LOCAL || process.env.DB_URL;
+
 mongoose.connect(mongoURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('Connected to MongoDB');
-}).catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log("Connected to MongoDB");
+})
+.catch((err) => {
+  console.error("Error connecting to MongoDB:", err);
 });
 
 // Routes
 const menuRoutes = require('./routes/menuRoutes');
-
-
 app.use('/menu', menuRoutes);
 
+// Hello World route
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Something went wrong!' });
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something went wrong!' });
 });
 
+// Define the port
+const PORT = 3000;
+
 // Start the server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
+
 
 
 
